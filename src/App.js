@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import ContactForm from './app/components/PersonalForm';
 
-function App() {
-  return (
-    <div className="App">
-      hello
-      <ContactForm/>
-    </div>
-  );
-}
 
+class App extends Component {
+  
+ 
+  render() { 
+    return (
+      <div className="App">
+        <ContactForm  />
+      </div>
+    );
+  }
+}
+ 
 export default App;
+
+// export default App;
+
+
+
