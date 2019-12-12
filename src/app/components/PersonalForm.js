@@ -3,12 +3,19 @@ import { Field, reduxForm } from "redux-form";
 
  const validate = values => {
    const errors = {};
+    const emailRegex = /@/gm;
 
-//    if (!values.password) {
-//      errors.password = "Required";
-//    } else if (values.password.length < 6) {
-//      errors.password = "Must be 6 characters or more";
-//    }
+   if (!values.password) {
+     errors.password = "Required";
+   } else if (values.password.length < 6) {
+     errors.password = "Must be 6 characters or more";
+   }
+
+   if(!values.email) {
+       errors.email = "Required"
+   } else if (!emailRegex.test(values.email)) {
+        errors.email = '"@" required '
+   }
 
    if(!values.secondPassword){
        errors.secondPassword = "Required";
@@ -28,7 +35,7 @@ const renderField = ({
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} placeholder={label} type={type} />
+      <input {...input} placeholder={label} type={type}  />
       {touched &&
         ((error && <span>{error}</span>) ||
           (warning && <span>{warning}</span>))}
@@ -54,15 +61,20 @@ let ContactForm = props => {
    
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-        {/* <Field name="email" type="email" component={renderField} label="Email" /> */}
+    <form onSubmit={handleSubmit(submit)} noValidate>
+      <Field name="email" type="email" component={renderField} label="Email" />
       <Field
         name="password"
         type="password"
         component={renderField}
         label="Password"
       />
-      <Field name="secondPassword" type="password" component={renderField} label="Confirm Password" />
+      <Field
+        name="secondPassword"
+        type="password"
+        component={renderField}
+        label="Confirm Password"
+      />
       <button type="submit" disabled={!dirty || submitting}>
         Submit
       </button>
