@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import formFieldReducer from '../app/duck/reducers';
 
 export default combineReducers({
-    routing: routerReducer,
-    form: formFieldReducer
+    // routing: routerReducer,
+    form: formReducer,
+    // personInfo: formFieldReducer
 })

@@ -1,24 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux'
-import actions from '../duck/actions'
+import React from "react";
+import { Field, reduxForm } from "redux-form";
 
-const Form = (props) => {
-    const handleClick = () => {
-        props.sayHi()
-    }
-    return ( 
-            <div>
-                <h1>i am form</h1>
-                <button onClick={handleClick}>klik</button>
-            </div>
-     );
-}
+let ContactForm = props => {
+  const { handleSubmit } = props;
+  return (
+    <form onSubmit={handleSubmit}>
+      I am field form
+      <div>
+        <label htmlFor="firstName">First Name</label>
+        <Field name="firstName" component="input" type="text" />
+      </div>
+    </form>
+  );
+};
 
-const mapDispatchToProps = dispatch => {
-    return({
-        sayHi: () => dispatch(actions.showConsole())
-    })
-}
+ContactForm = reduxForm({
+  // a unique name for the form
+  form: "contact"
+})(ContactForm);
 
- 
-export default connect(null, mapDispatchToProps)(Form);       
+export default ContactForm;
