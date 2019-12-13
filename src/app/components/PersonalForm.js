@@ -8,37 +8,35 @@ import submit from './submit'
 
 let ContactForm = props => {
   const { handleSubmit, dirty, submitting } = props;
-
-  // const sendDataFromAPI = (formData) => {
-
-  // }
-      // const submit = values => {
-      //     return new Promise((resolve, reject) => {
-      //         setTimeout(() => {
-      //             console.log(values)
-      //             props.addData(values)
-      //             resolve()
-      //         }, 2000)
-      //     })
-      //   };
-      // submit(values, props)
-
-
+  
+    const saveAndHandleServerValidation = formData => {
+      return new Promise((resolve, reject) => {
+        submit(formData).then(
+          res => {
+            resolve();
+          },
+          err => {
+            reject(new SubmissionError(err));
+          }
+        );
+      });
+    };
+  
   return (
-    <form onSubmit={handleSubmit(submit)} noValidate>
+    <form onSubmit={handleSubmit(saveAndHandleServerValidation)} noValidate>
       <Field name="email" type="email" component={RenderField} label="Email" />
       <Field
         name="password"
         type="password"
         component={RenderField}
         label="Password"
-      />
+        />
       <Field
         name="secondPassword"
         type="password"
         component={RenderField}
         label="Confirm Password"
-      />
+        />
       <button type="submit" disabled={!dirty || submitting}>
         Submit
       </button>
@@ -66,3 +64,17 @@ ContactForm = reduxForm({
 })(ContactForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+
+// const sendDataFromAPI = (formData) => {
+
+// }
+    // const submit = values => {
+    //     return new Promise((resolve, reject) => {
+    //         setTimeout(() => {
+    //             console.log(values)
+    //             props.addData(values)
+    //             resolve()
+    //         }, 2000)
+    //     })
+    //   };
+    // submit(values, props)
