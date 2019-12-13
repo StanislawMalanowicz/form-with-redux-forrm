@@ -6,5 +6,5 @@ import formFieldReducer from '../app/duck/reducers';
 export default combineReducers({
     // routing: routerReducer,
     form: formReducer,
-    // personInfo: formFieldReducer
+    personInfo: formFieldReducer
 })

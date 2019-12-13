@@ -1,15 +1,17 @@
 
 const initialData = {
   listName: "personalInfo",
-  name: "Jakiś Jan"
+  data: []
+  
 };
 
 const fieldFormReducer = (state = initialData, action) => {
   switch (action.type) {
     case 'CONSOLE_LOG_HI':
-        console.log("hi")
+        console.log(" should work...? ")
         return {
           ...state,
+          data: [action.data]
         };
      
     default:

@@ -1,5 +1,8 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import {  connect } from 'react-redux'
+import RenderField from './RenderField'
+import actions from '../duck/actions'
 
  const validate = values => {
    const errors = {};
@@ -26,22 +29,7 @@ import { Field, reduxForm } from "redux-form";
    return errors;
  };
 
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}  />
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
-  </div>
-);
+
 
 
 let ContactForm = props => {
@@ -53,6 +41,7 @@ let ContactForm = props => {
       return new Promise((resolve, reject) => {
           setTimeout(() => {
               console.log(values)
+              props.addData(values)
               resolve()
           }, 2000)
       })
@@ -62,17 +51,17 @@ let ContactForm = props => {
 
   return (
     <form onSubmit={handleSubmit(submit)} noValidate>
-      <Field name="email" type="email" component={renderField} label="Email" />
+      <Field name="email" type="email" component={RenderField} label="Email" />
       <Field
         name="password"
         type="password"
-        component={renderField}
+        component={RenderField}
         label="Password"
       />
       <Field
         name="secondPassword"
         type="password"
-        component={renderField}
+        component={RenderField}
         label="Confirm Password"
       />
       <button type="submit" disabled={!dirty || submitting}>
@@ -82,10 +71,17 @@ let ContactForm = props => {
   );
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    addData: data => dispatch(actions.showConsole(data)),
+  };
+};
+
+
 ContactForm = reduxForm({
   // a unique name for the form
   form: "contact",
   validate
 })(ContactForm);
 
-export default ContactForm;
+export default connect(null, mapDispatchToProps)(ContactForm);
