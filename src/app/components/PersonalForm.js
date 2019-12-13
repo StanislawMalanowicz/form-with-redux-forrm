@@ -1,24 +1,27 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, SubmissionError } from "redux-form";
 import {  connect } from 'react-redux'
 import RenderField from './RenderField'
 import actions from '../duck/actions';
 import validate from '../duck/validate'
-
+import submit from './submit'
 
 let ContactForm = props => {
   const { handleSubmit, dirty, submitting } = props;
 
-  const submit = values => {
+  // const sendDataFromAPI = (formData) => {
 
-      return new Promise((resolve, reject) => {
-          setTimeout(() => {
-              console.log(values)
-              props.addData(values)
-              resolve()
-          }, 2000)
-      })
-    };
+  // }
+      // const submit = values => {
+      //     return new Promise((resolve, reject) => {
+      //         setTimeout(() => {
+      //             console.log(values)
+      //             props.addData(values)
+      //             resolve()
+      //         }, 2000)
+      //     })
+      //   };
+      // submit(values, props)
 
 
   return (

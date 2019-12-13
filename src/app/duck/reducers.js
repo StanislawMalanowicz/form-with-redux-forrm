@@ -8,7 +8,7 @@ const initialData = {
 const fieldFormReducer = (state = initialData, action) => {
   switch (action.type) {
     case 'CONSOLE_LOG_HI':
-        console.log(" should work...? ")
+        console.log(" Console log from field reducer")
         return {
           ...state,
           data: [action.data]
