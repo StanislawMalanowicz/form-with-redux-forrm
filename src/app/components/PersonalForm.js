@@ -2,34 +2,8 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import {  connect } from 'react-redux'
 import RenderField from './RenderField'
-import actions from '../duck/actions'
-
- const validate = values => {
-   const errors = {};
-    const emailRegex = /@/gm;
-
-   if (!values.password) {
-     errors.password = "Required";
-   } else if (values.password.length < 6) {
-     errors.password = "Must be 6 characters or more";
-   }
-
-   if(!values.email) {
-       errors.email = "Required"
-   } else if (!emailRegex.test(values.email)) {
-        errors.email = '"@" required '
-   }
-
-   if(!values.secondPassword){
-       errors.secondPassword = "Required";
-   } else if(values.password !== values.secondPassword){
-       errors.secondPassword = "Wrong Password";
-   }
-
-   return errors;
- };
-
-
+import actions from '../duck/actions';
+import validate from '../duck/validate'
 
 
 let ContactForm = props => {
@@ -37,7 +11,6 @@ let ContactForm = props => {
 
   const submit = values => {
 
-    //   console.log(values);
       return new Promise((resolve, reject) => {
           setTimeout(() => {
               console.log(values)
@@ -47,7 +20,6 @@ let ContactForm = props => {
       })
     };
 
-   
 
   return (
     <form onSubmit={handleSubmit(submit)} noValidate>
@@ -76,6 +48,12 @@ const mapDispatchToProps = dispatch => {
     addData: data => dispatch(actions.showConsole(data)),
   };
 };
+const mapStateToProps = (state) => {
+  return ({
+    personalInfo: state.person
+  })
+}
+
 
 
 ContactForm = reduxForm({
@@ -84,4 +62,4 @@ ContactForm = reduxForm({
   validate
 })(ContactForm);
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
